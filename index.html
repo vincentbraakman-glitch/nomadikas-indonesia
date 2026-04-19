@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Three Estates for Your Retreat — Nomadikas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&family=Josefin+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ——— Design Tokens ——— */
+:root {
+    --primary: #1a1a1a;
+    --primary-soft: #2a2828;
+    --accent: #c9a87c;
+    --accent-soft: #ddc1a0;
+    --cream: #faf8f3;
+    --cream-warm: #f3ede0;
+    --text: #2a2727;
+    --text-mute: #6b6661;
+    --text-whisper: #a09a92;
+    --border: rgba(26, 26, 26, 0.08);
+    --shadow-soft: 0 4px 40px rgba(26, 26, 26, 0.06);
+    --shadow-lift: 0 20px 80px rgba(26, 26, 26, 0.12);
+    --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--text);
+    background: var(--cream);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+.serif { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; }
+.sans-small { font-family: 'Josefin Sans', sans-serif; letter-spacing: 0.25em; text-transform: uppercase; font-size: 0.7rem; font-weight: 400; color: var(--text-mute); }
+
+h1, h2, h3 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; color: var(--primary); line-height: 1.15; letter-spacing: -0.01em; }
+
+.container { max-width: 1280px; margin: 0 auto; padding: 0 2.5rem; }
+@media (max-width: 768px) { .container { padding: 0 1.25rem; } }
+
+/* ——— Hero ——— */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 6rem 2rem 4rem;
+    background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 100%), url('https://tripswithasoul.com/wp-content/uploads/2025/05/INTAAYA-Drone.png') center/cover no-repeat;
+    color: var(--cream);
+    text-align: center;
+}
+.hero::after {
+    content: '';
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    width: 1px; height: 3rem;
+    background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 100%);
+    animation: scroll-cue 2.4s var(--ease) infinite;
+}
+@keyframes scroll-cue {
+    0% { transform: translateX(-50%) scaleY(0); transform-origin: top; }
+    50% { transform: translateX(-50%) scaleY(1); transform-origin: top; }
+    51% { transform: translateX(-50%) scaleY(1); transform-origin: bottom; }
+    100% { transform: translateX(-50%) scaleY(0); transform-origin: bottom; }
+}
+.hero .brand {
+    font-family: 'Josefin Sans', sans-serif;
+    letter-spacing: 0.4em;
+    font-size: 0.85rem;
+    font-weight: 400;
+    margin-bottom: 3rem;
+    opacity: 0.85;
+}
+.hero h1 {
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 300;
+    color: var(--cream);
+    line-height: 1.05;
+    max-width: 16ch;
+    margin: 0 auto 2rem;
+    font-style: italic;
+}
+.hero h1 .ampersand { color: var(--accent-soft); font-family: 'Cormorant Garamond', serif; font-style: italic; }
+.hero .kicker {
+    font-family: 'Josefin Sans', sans-serif;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+    opacity: 0.8;
+    margin-top: 1.5rem;
+}
+
+/* ——— Intro ——— */
+.intro { padding: 8rem 0 6rem; text-align: center; }
+.intro .sans-small { margin-bottom: 2rem; color: var(--accent); }
+.intro p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    line-height: 1.5;
+    max-width: 38ch;
+    margin: 0 auto;
+    color: var(--primary);
+    font-weight: 300;
+    font-style: italic;
+}
+.intro-divider { width: 1.5rem; height: 1px; background: var(--accent); margin: 2.5rem auto 0; }
+
+/* ——— Estate cards ——— */
+.estates { padding: 2rem 0 8rem; }
+.estate-grid { display: grid; gap: 4rem; }
+.estate-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    cursor: pointer;
+}
+.estate-card.reverse { direction: rtl; }
+.estate-card.reverse > * { direction: ltr; }
+@media (max-width: 900px) {
+    .estate-grid { gap: 5rem; }
+    .estate-card, .estate-card.reverse { grid-template-columns: 1fr; gap: 2rem; direction: ltr; }
+}
+.estate-card-image {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    background: var(--cream-warm);
+}
+.estate-card-image img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 1.2s var(--ease-out);
+}
+.estate-card:hover .estate-card-image img { transform: scale(1.04); }
+.estate-card-image::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(0,0,0,0.15) 100%);
+    pointer-events: none;
+}
+.estate-card-number {
+    position: absolute;
+    top: 1.5rem; left: 1.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    color: var(--cream);
+    font-weight: 300;
+    mix-blend-mode: difference;
+}
+.estate-card-content .eyebrow {
+    font-family: 'Josefin Sans', sans-serif;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+.estate-card-content h2 {
+    font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    font-style: italic;
+}
+.estate-card-content .location {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    color: var(--text-mute);
+    margin-bottom: 1.5rem;
+    font-style: italic;
+    font-weight: 300;
+}
+.estate-card-content .description {
+    color: var(--text);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    margin-bottom: 2rem;
+    max-width: 44ch;
+}
+.estate-card-content .facts {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1.25rem;
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+.estate-card-content .fact { font-size: 0.85rem; color: var(--text-mute); }
+.estate-card-content .fact strong {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--primary);
+    margin-bottom: 0.1rem;
+}
+
+.estate-card-content .price {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.65rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border);
+}
+.estate-card-content .price .price-label {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    font-weight: 500;
+}
+.estate-card-content .price .price-amount {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-style: italic;
+    color: var(--primary);
+    font-weight: 500;
+}
+.estate-card-content .price .price-unit {
+    font-size: 0.85rem;
+    color: var(--text-mute);
+    font-style: italic;
+}
+.estate-card-content .price .price-tentative {
+    margin-left: auto;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 500;
+}
+.estate-card-content .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-family: 'Josefin Sans', sans-serif;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+    color: var(--primary);
+    font-weight: 500;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid var(--primary);
+    transition: gap 0.35s var(--ease);
+}
+.estate-card:hover .cta { gap: 1.2rem; }
+.estate-card .cta svg { width: 1rem; height: 1rem; }
+
+/* ——— Closing ——— */
+.closing { padding: 6rem 0 8rem; text-align: center; background: var(--cream-warm); }
+.closing .serif {
+    font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+    font-style: italic;
+    color: var(--primary);
+    max-width: 30ch;
+    margin: 1.5rem auto 0;
+    line-height: 1.5;
+}
+
+/* ——— Modal ——— */
+.modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(10, 10, 10, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s var(--ease);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+}
+.modal-overlay.open { opacity: 1; pointer-events: auto; }
+.modal {
+    min-height: 100vh;
+    padding: 3rem 0;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s var(--ease-out) 0.1s, transform 0.6s var(--ease-out) 0.1s;
+}
+.modal-overlay.open .modal { opacity: 1; transform: translateY(0); }
+.modal-close {
+    position: fixed;
+    top: 2rem; right: 2rem;
+    z-index: 101;
+    width: 3rem; height: 3rem;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: var(--cream);
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    cursor: pointer;
+    transition: all 0.3s var(--ease);
+    display: flex; align-items: center; justify-content: center;
+}
+.modal-close:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+.modal-close::before, .modal-close::after {
+    content: ''; position: absolute;
+    width: 1.1rem; height: 1px; background: var(--cream);
+}
+.modal-close::before { transform: rotate(45deg); }
+.modal-close::after { transform: rotate(-45deg); }
+.modal-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    background: var(--cream);
+    color: var(--text);
+}
+@media (max-width: 768px) {
+    .modal-inner { padding: 0; margin: 0; }
+    .modal-close { top: 1rem; right: 1rem; width: 2.75rem; height: 2.75rem; }
+}
+
+/* ——— Slider — full viewport width, cinematic height ——— */
+.slider {
+    position: relative;
+    background: #141414;
+    overflow: hidden;
+    width: 100%;
+    height: 82vh;
+    min-height: 520px;
+}
+.slider-track { position: relative; width: 100%; height: 100%; }
+.slide {
+    position: absolute; inset: 0;
+    opacity: 0;
+    transition: opacity 0.8s var(--ease);
+    display: flex; align-items: center; justify-content: center;
+}
+.slide.active { opacity: 1; }
+.slide img {
+    max-width: 100%; max-height: 100%;
+    width: auto; height: auto;
+    object-fit: contain;
+    display: block;
+}
+/* subtle top/bottom fade for legibility of controls and counter */
+.slider::before {
+    content: '';
+    position: absolute; left: 0; right: 0; top: 0;
+    height: 140px;
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(10,10,10,0.45) 0%, rgba(10,10,10,0) 100%);
+}
+.slider::after {
+    content: '';
+    position: absolute; left: 0; right: 0; bottom: 0;
+    height: 180px;
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(0deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0) 100%);
+}
+
+.slide-caption {
+    position: absolute;
+    bottom: 4.5rem; left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    background: rgba(10, 10, 10, 0.5);
+    backdrop-filter: blur(6px);
+    color: rgba(250, 248, 243, 0.95);
+    padding: 0.5rem 1.25rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem;
+    font-style: italic;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    max-width: 70%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    opacity: 0;
+    transition: opacity 0.4s var(--ease);
+}
+.slide-caption.visible { opacity: 1; }
+
+.slider-controls {
+    position: absolute;
+    bottom: 2rem; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 0.6rem;
+    z-index: 5;
+}
+.slider-dot {
+    width: 2rem; height: 2px;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    transition: background 0.3s var(--ease);
+}
+.slider-dot.active { background: var(--cream); }
+.slider-arrow {
+    position: absolute;
+    top: 50%; transform: translateY(-50%);
+    width: 3.5rem; height: 3.5rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: var(--cream);
+    cursor: pointer;
+    z-index: 5;
+    font-family: serif;
+    font-size: 1.2rem;
+    transition: all 0.3s var(--ease);
+    display: flex; align-items: center; justify-content: center;
+    backdrop-filter: blur(4px);
+}
+.slider-arrow:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+.slider-arrow.prev { left: 2rem; }
+.slider-arrow.next { right: 2rem; }
+.slider-counter {
+    position: absolute;
+    top: 2rem; left: 2rem;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.25em;
+    color: var(--cream);
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0.5rem 1rem;
+    backdrop-filter: blur(4px);
+    z-index: 5;
+}
+
+/* ——— Scroll-cue on slider bottom — signals "more below" ——— */
+.slider-scroll-cue {
+    position: absolute;
+    bottom: 1.25rem;
+    right: 2rem;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(250, 248, 243, 0.8);
+    pointer-events: none;
+}
+.slider-scroll-cue .label {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+.slider-scroll-cue .line {
+    display: block;
+    width: 1px;
+    height: 2.2rem;
+    background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.8) 100%);
+    animation: scroll-cue 2.4s var(--ease) infinite;
+    transform-origin: top;
+}
+@media (max-width: 768px) {
+    .slider-scroll-cue {
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 0.4rem;
+    }
+    .slider-scroll-cue .label { font-size: 0.58rem; letter-spacing: 0.22em; }
+    .slider-scroll-cue .line { height: 1.2rem; }
+}
+@media (max-width: 768px) {
+    .slider { height: 62vh; min-height: 380px; }
+    .slider-arrow { width: 2.75rem; height: 2.75rem; }
+    .slider-arrow.prev { left: 0.75rem; }
+    .slider-arrow.next { right: 0.75rem; }
+    .slider-counter { top: 1rem; left: 1rem; font-size: 0.7rem; padding: 0.35rem 0.75rem; }
+    .slide-caption { bottom: 4.5rem; font-size: 0.8rem; padding: 0.4rem 0.9rem; max-width: 88%; }
+    .slider::before { height: 80px; }
+    .slider::after { height: 140px; }
+    .slider-controls { bottom: 2.75rem; }
+}
+
+/* ——— Modal content ——— */
+.modal-content { padding: 5rem 5rem 8rem; }
+@media (max-width: 768px) {
+    .modal-content { padding: 2.5rem 1.25rem 4rem; }
+    .modal-content .fact-chips { gap: 1.25rem; padding: 1.5rem 0; margin-bottom: 2rem; }
+    .modal-content .fact-chips .chip strong { font-size: 1.4rem; }
+    .modal-content .fact-chips .chip { font-size: 0.82rem; flex: 1 1 45%; min-width: 130px; }
+    .modal-content .best-for { padding: 1.5rem 1.25rem; margin: 2rem 0; }
+    .modal-content h3 { margin-top: 2rem; font-size: 1.4rem; }
+    .faq-item summary { padding: 1.1rem 0; padding-right: 2rem; font-size: 1.1rem; }
+    .faq-section { margin-top: 3rem; padding-top: 2.5rem; }
+    .faq-section::before { font-size: 0.62rem; letter-spacing: 0.22em; }
+    .faq-section > h3 { font-size: 1.6rem !important; }
+}
+
+.modal-content .eyebrow {
+    font-family: 'Josefin Sans', sans-serif;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+.modal-content h2 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 400;
+    font-style: italic;
+    margin-bottom: 0.5rem;
+}
+.modal-content .location {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-style: italic;
+    color: var(--text-mute);
+    margin-bottom: 3rem;
+    font-weight: 300;
+}
+.modal-content .lede {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    line-height: 1.6;
+    font-style: italic;
+    color: var(--primary);
+    margin-bottom: 3rem;
+    max-width: 48ch;
+    font-weight: 300;
+}
+.modal-content h3 {
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    font-style: italic;
+}
+.modal-content p {
+    margin-bottom: 1rem;
+    max-width: 56ch;
+}
+.modal-content .fact-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 2rem 0;
+    margin-bottom: 3rem;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+.modal-content .chip { font-size: 0.9rem; color: var(--text-mute); }
+.modal-content .chip strong {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.7rem;
+    font-weight: 400;
+    color: var(--primary);
+    margin-bottom: 0.15rem;
+    font-style: italic;
+}
+.modal-content ul { list-style: none; padding: 0; margin: 0 0 2rem 0; }
+.modal-content ul li {
+    padding: 0.6rem 0;
+    padding-left: 1.8rem;
+    position: relative;
+    border-bottom: 1px dotted var(--border);
+    font-size: 1.02rem;
+}
+.modal-content ul li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 1.1rem;
+    width: 0.8rem; height: 1px;
+    background: var(--accent);
+}
+.modal-content .best-for {
+    background: var(--cream-warm);
+    padding: 2rem 2.5rem;
+    margin: 3rem 0;
+    border-left: 2px solid var(--accent);
+}
+.modal-content .best-for .sans-small { color: var(--accent); margin-bottom: 0.5rem; }
+.modal-content .best-for p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.5;
+    margin: 0;
+    color: var(--primary);
+}
+
+/* ——— FAQ Accordion ——— */
+.faq-section {
+    margin-top: 5rem;
+    padding-top: 4rem;
+    border-top: 2px solid var(--accent);
+    position: relative;
+}
+.faq-section::before {
+    content: 'Questions retreat leaders ask';
+    position: absolute;
+    top: -0.65rem;
+    left: 0;
+    background: var(--cream);
+    padding: 0 1.25rem 0 0;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+}
+.faq-section > h3 {
+    margin-bottom: 0.75rem !important;
+    margin-top: 0 !important;
+    font-size: 2rem !important;
+}
+.faq-section-intro {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    color: var(--text-mute);
+    font-style: italic;
+    margin-bottom: 2.5rem;
+    max-width: 48ch;
+    font-weight: 300;
+}
+
+.faq-accordion { border-top: 1px solid var(--border); }
+.faq-item { border-bottom: 1px solid var(--border); }
+.faq-item summary {
+    list-style: none;
+    padding: 1.5rem 0;
+    padding-right: 3rem;
+    cursor: pointer;
+    position: relative;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-style: italic;
+    color: var(--primary);
+    font-weight: 500;
+    transition: color 0.3s var(--ease);
+    user-select: none;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+    content: '';
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1rem; height: 1rem;
+    border-right: 1px solid var(--primary);
+    border-bottom: 1px solid var(--primary);
+    transform: translateY(-70%) rotate(45deg);
+    transition: transform 0.3s var(--ease);
+}
+.faq-item[open] summary::after { transform: translateY(-30%) rotate(-135deg); }
+.faq-item summary:hover { color: var(--accent); }
+.faq-item[open] summary { color: var(--accent); }
+
+.faq-answer {
+    padding: 0 0 1.75rem 0;
+    max-width: 62ch;
+    animation: faq-fade-in 0.45s var(--ease-out);
+}
+@keyframes faq-fade-in {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.faq-answer p { margin-bottom: 0.75rem; font-size: 1rem; line-height: 1.7; color: var(--text); }
+.faq-answer p:last-child { margin-bottom: 0; }
+.faq-answer strong { color: var(--primary); font-weight: 600; }
+
+/* ——— Scroll reveal ——— */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 1s var(--ease-out), transform 1s var(--ease-out); }
+.reveal.in-view { opacity: 1; transform: translateY(0); }
+
+body.modal-open { overflow: hidden; }
+
+footer {
+    padding: 3rem 0;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    background: var(--cream);
+}
+footer .brand {
+    font-family: 'Josefin Sans', sans-serif;
+    letter-spacing: 0.3em;
+    font-size: 0.8rem;
+    color: var(--text-mute);
+}
+footer small {
+    display: block;
+    margin-top: 0.5rem;
+    color: var(--text-whisper);
+    font-size: 0.75rem;
+}
+</style>
+</head>
+<body>
+
+<!-- ——— HERO ——— -->
+<section class="hero">
+    <div class="brand">NOMADIKAS</div>
+    <h1>Three Estates <span class="ampersand">·</span> Two Islands <span class="ampersand">·</span> One Retreat</h1>
+    <div class="kicker">A proposal for your next retreat in Indonesia</div>
+</section>
+
+<!-- ——— INTRO ——— -->
+<section class="intro container">
+    <div class="sans-small reveal">Curated by Nomadikas</div>
+    <p class="reveal">Three architecturally extraordinary estates across Nusa Penida and Sumba — each available as a private buyout, each built for a different kind of retreat.</p>
+    <div class="intro-divider reveal"></div>
+</section>
+
+<!-- ——— ESTATE CARDS ——— -->
+<section class="estates">
+    <div class="container">
+        <div class="estate-grid">
+
+            <article class="estate-card reveal" onclick="openModal('manta-cliff')">
+                <div class="estate-card-image">
+                    <img src="https://tripswithasoul.com/wp-content/uploads/2025/05/INTAAYA-PROFILE-firs-picture-Exteriors-Views-1.jpg" alt="Estate Manta Cliff — cliff-top tent suites on Nusa Penida"/>
+                    <span class="estate-card-number">01</span>
+                </div>
+                <div class="estate-card-content">
+                    <div class="eyebrow">Nusa Penida · Indonesia</div>
+                    <h2>Estate Manta Cliff</h2>
+                    <div class="location">on the cliffs of Diamond Beach</div>
+                    <p class="description">A living sanctuary of thirteen rammed-earth tent suites perched on a 53-metre cliff above the Indian Ocean. Bamboo roofs shaped like manta rays. An off-grid retreat where nature does most of the talking.</p>
+                    <div class="facts">
+                        <div class="fact"><strong>13</strong>tent suites</div>
+                        <div class="fact"><strong>26</strong>guests</div>
+                        <div class="fact"><strong>1.9 ha</strong>cliff-top</div>
+                    </div>
+                    <div class="price">
+                        <span class="price-label">From</span>
+                        <span class="price-amount">€9,500</span>
+                        <span class="price-unit">/ night · private buyout</span>
+                        <span class="price-tentative">Indicative</span>
+                    </div>
+                    <span class="cta">View the estate + 11 FAQs <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                </div>
+            </article>
+
+            <article class="estate-card reverse reveal" onclick="openModal('barefoot-sumba')">
+                <div class="estate-card-image">
+                    <img src="https://cdn.prod.website-files.com/61a5e605e33fbc60196d8d64/62e8921b8aa3c2241596a8ec_the-sanubari-riding-horse-beach-remoteness.jpg" alt="Estate Barefoot Sumba — horseback riding on 2km private beach"/>
+                    <span class="estate-card-number">02</span>
+                </div>
+                <div class="estate-card-content">
+                    <div class="eyebrow">Sumba · Indonesia</div>
+                    <h2>Estate Barefoot Sumba</h2>
+                    <div class="location">two kilometres of private white sand</div>
+                    <p class="description">Eleven hand-crafted villas on the Lamboya coast — two kilometres of private beach, a surf-friendly reef, horses on the sand at sunset. Set on 100 hectares within Sumba's ancestral Marapu lands.</p>
+                    <div class="facts">
+                        <div class="fact"><strong>11</strong>villas</div>
+                        <div class="fact"><strong>22</strong>guests</div>
+                        <div class="fact"><strong>100 ha</strong>private reserve</div>
+                    </div>
+                    <div class="price">
+                        <span class="price-label">From</span>
+                        <span class="price-amount">€7,500</span>
+                        <span class="price-unit">/ night · private buyout</span>
+                        <span class="price-tentative">Indicative</span>
+                    </div>
+                    <span class="cta">View the estate + 11 FAQs <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                </div>
+            </article>
+
+            <article class="estate-card reveal" onclick="openModal('nihi-cliff')">
+                <div class="estate-card-image">
+                    <img src="https://www.haweri.com/images/Home_1_0/haweri_estate_1.jpg" alt="Estate Nihi Cliff — a private estate on a sacred Sumbanese headland"/>
+                    <span class="estate-card-number">03</span>
+                </div>
+                <div class="estate-card-content">
+                    <div class="eyebrow">Sumba · Indonesia</div>
+                    <h2>Estate Nihi Cliff</h2>
+                    <div class="location">a sacred five-acre headland on the Sumbanese coast</div>
+                    <p class="description">A private five-acre oceanfront estate — five individual villas, four pools, a waterfront yoga pavilion, and arranged access to a world-class spa and celebrated surf breaks next door. The most intimate of the three.</p>
+                    <div class="facts">
+                        <div class="fact"><strong>5</strong>villas</div>
+                        <div class="fact"><strong>10–15</strong>guests</div>
+                        <div class="fact"><strong>5 acres</strong>headland</div>
+                    </div>
+                    <div class="price">
+                        <span class="price-label">From</span>
+                        <span class="price-amount">€15,000</span>
+                        <span class="price-unit">/ night · private buyout</span>
+                        <span class="price-tentative">Indicative</span>
+                    </div>
+                    <span class="cta">View the estate + 11 FAQs <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                </div>
+            </article>
+
+        </div>
+    </div>
+</section>
+
+<!-- ——— CLOSING ——— -->
+<section class="closing">
+    <div class="container">
+        <div class="sans-small">For retreat leaders</div>
+        <p class="serif">Each estate available as a private buyout. Pick the one that fits your group — the cliff, the beach, or the headland.</p>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="brand">NOMADIKAS</div>
+        <small>Curated retreat estates · A private proposal</small>
+    </div>
+</footer>
+
+
+<!-- ====================================================================
+     MODAL — ESTATE MANTA CLIFF
+     ==================================================================== -->
+<div class="modal-overlay" id="modal-manta-cliff" data-modal="manta-cliff">
+    <button class="modal-close" aria-label="Close"></button>
+    <div class="modal">
+        <div class="slider" data-slider>
+            <div class="slider-track">
+                <div class="slide active" data-caption="A cliff-top sanctuary on Diamond Beach, Nusa Penida"><img src="https://tripswithasoul.com/wp-content/uploads/2025/05/INTAAYA-PROFILE-firs-picture-Exteriors-Views-1.jpg" alt=""/></div>
+                    <div class="slide" data-caption="Aerial — 1.9 hectares of cliff-top terrain"><img src="https://tripswithasoul.com/wp-content/uploads/2025/05/INTAAYA-Drone.png" alt=""/></div>
+                    <div class="slide" data-caption="The manta-shaped yoga shala, open-air and overlooking the sea"><img src="https://tripswithasoul.com/wp-content/uploads/2025/05/INTAAYA-Yoga-Shala-1.jpg" alt=""/></div>
+                    <div class="slide" data-caption="Rammed-earth tent suite — exterior"><img src="https://tripswithasoul.com/wp-content/uploads/2025/05/INTAAYA-Tent-Suite-Exterior-1.jpg" alt=""/></div>
+                    <div class="slide" data-caption="Tent suite interior — canvas, timber, locally sourced limestone"><img src="https://tripswithasoul.com/wp-content/uploads/2025/05/INTAAYA-Tent-Suite-Interior-1.jpg" alt=""/></div>
+                    <div class="slide" data-caption="Estate views from the cliff edge"><img src="https://tripswithasoul.com/wp-content/uploads/2025/05/INTAAYA-Exteriors-Views-3.jpg" alt=""/></div>
+                    <div class="slide" data-caption="The private beach — access via carved cliff stairs"><img src="https://tripswithasoul.com/wp-content/uploads/2025/05/INTAAYA-Private-Beach-2.jpg" alt=""/></div>
+                    <div class="slide" data-caption="Cliffside spa — for integration and rest"><img src="https://tripswithasoul.com/wp-content/uploads/2025/05/INTAAYA-Spa-1.jpg" alt=""/></div>
+                    <div class="slide" data-caption="The tea temple — for breathwork, sound, smaller circles"><img src="https://tripswithasoul.com/wp-content/uploads/2025/05/INTAAYA-Tea-Temple-1.jpg" alt=""/></div>
+            <div class="slide" data-caption="Farm-to-table restaurant — menus built with the retreat leader"><img src="https://tripswithasoul.com/wp-content/uploads/2025/05/INTAAYA-Restaurant-Kitchen-1.jpg" alt=""/></div>
+            </div>
+            <div class="slide-caption"></div>
+            <button class="slider-arrow prev" aria-label="Previous">‹</button>
+            <button class="slider-arrow next" aria-label="Next">›</button>
+            <div class="slider-counter"><span class="current">1</span> / <span class="total">10</span></div>
+            <div class="slider-controls"></div>
+            <div class="slider-scroll-cue"><span class="label">Scroll for details</span><span class="line"></span></div>
+        </div>
+        <div class="modal-inner">
+            <div class="modal-content">
+                <div class="eyebrow">01 · Nusa Penida · Indonesia</div>
+                <h2>Estate Manta Cliff</h2>
+                <div class="location">on the cliffs of Diamond Beach</div>
+
+                <p class="lede">A sanctuary where bamboo roofs are shaped like manta rays, canvas tents are anchored in rammed earth, and a 53-metre cliff falls away to a private beach below.</p>
+
+                <div class="fact-chips">
+                    <div class="chip"><strong>13</strong>tent suites · 3 types</div>
+                    <div class="chip"><strong>26</strong>guests at buyout</div>
+                    <div class="chip"><strong>1.9 ha</strong>cliff-top land</div>
+                    <div class="chip"><strong>From €9,500</strong>/ night buyout · indicative</div>
+                </div>
+
+                <h3>The estate</h3>
+                <p>Designed by an award-winning Balinese architectural practice known for poetic, place-rooted work. Canvas tents stretched over timber and rammed-earth foundations. Every suite opens to a private terrace facing the sea. The 53-metre cliff is the organising feature: a meditative stair descent leads to a private beach that feels like a secret.</p>
+
+                <h3>The accommodation</h3>
+                <p>Three tent-suite types across the terrain. Premium Type A (62 m², king bed) for singles or couples. Premium Type B (98 m², two queens or one king) for friends or families. VIP Cliffside Suite (130 m², two kings, two bathrooms, living room). Organic linens, locally sourced limestone walls, artisanal interiors.</p>
+
+                <h3>Signature spaces for retreat programming</h3>
+                <ul>
+                    <li>Manta-shaped yoga shala on the cliff — open-air, capacity ~25 for asana</li>
+                    <li>Tea temple for breathwork, sound healing, smaller circles (up to 12)</li>
+                    <li>Ocean-view infinity pool and cliffside spa for integration and rest</li>
+                    <li>Private beach via the cliff stairs — for closing ceremonies, fire circles, swims</li>
+                    <li>Farm-to-table restaurant with retreat-tuned menus</li>
+                </ul>
+
+                <h3>Typical experiences</h3>
+                <ul>
+                    <li>Daily yoga, breathwork, sound in the shala and tea temple</li>
+                    <li>Snorkelling or diving at Manta Point (world-class manta ray cleaning station)</li>
+                    <li>Cliffside spa treatments</li>
+                    <li>Day trips to Kelingking Beach, Atuh, Diamond Beach</li>
+                    <li>Sunset rituals on the cliff, sunrise meditation at the tea temple</li>
+                </ul>
+
+                <div class="best-for">
+                    <div class="sans-small">Best suited for</div>
+                    <p>Design-forward wellness retreats — yoga, pilates, menopause work, breathwork, sound. Groups of 20–26 who want architectural immersion, not just accommodation.</p>
+                </div>
+
+                <div class="faq-section">
+                    <h3>Retreat leader FAQs</h3>
+                    <p class="faq-section-intro">The most common questions we get from retreat leaders planning a week at Estate Manta Cliff — answered directly.</p>
+                    <div class="faq-accordion">
+
+                        <details class="faq-item">
+                            <summary>Is the full estate available for a private retreat buyout?</summary>
+                            <div class="faq-answer"><p><strong>Yes.</strong> All 13 tent suites booked as one retreat, sleeping up to 26 guests. Estate Manta Cliff is designed around buyout — that's the primary way the property operates.</p></div>
+                        </details>
+
+                        <details class="faq-item">
+                            <summary>How much space is there for group yoga and movement practice?</summary>
+                            <div class="faq-answer">
+                                <p>The manta-shaped yoga shala is open-air and comfortably holds around 25 practitioners for mat-based practice — a little tight for a full 26-guest buyout, comfortable for 20. The tea temple fits up to 12 for breathwork, sound healing, and smaller circles.</p>
+                                <p>Both spaces are covered, so inclement weather doesn't interrupt programming.</p>
+                            </div>
+                        </details>
+
+                        <details class="faq-item">
+                            <summary>What's the minimum stay for a retreat?</summary>
+                            <div class="faq-answer"><p>Seven to ten nights is typical. The estate was designed around multi-day programming — shorter than seven compromises the arc retreat participants come for.</p></div>
+                        </details>
+
+                        <details class="faq-item">
+                            <summary>How do my guests reach the estate from Bali?</summary>
+                            <div class="faq-answer">
+                                <p>A 40-minute fast-boat from Sanur (Bali) to Nusa Penida, followed by a road transfer of roughly 45 minutes across the island. Group transfers are arranged as part of the buyout.</p>
+                                <p>Total transit from Bali airport: approximately 3 hours including the drive to Sanur.</p>
+                            </div>
+                        </details>
+
+                        <details class="faq-item">
+                            <summary>Can you accommodate specific dietary needs — vegan, gluten-free, Ayurvedic, allergies?</summary>
+                            <div class="faq-answer"><p>Yes. The farm-to-table kitchen works with retreat leaders in advance to design menus — plant-based, gluten-free, Ayurvedic, sugar-free, nut-free, anything the group requires. Fresh ingredients are sourced locally where possible.</p></div>
+                        </details>
+
+                        <details class="faq-item">
+                            <summary>Is the WiFi reliable enough for online components or hybrid retreats?</summary>
+                            <div class="faq-answer"><p>Yes. The estate runs on high-speed Starlink, with coverage across accommodation and communal spaces. Retreat leaders have run hybrid sessions and recorded content on-site without issue.</p></div>
+                        </details>
+
+                        <details class="faq-item">
+                            <summary>Can I bring my own facilitators and teachers, or is programming provided?</summary>
+                            <div class="faq-answer"><p>You bring your own team. The estate provides the spaces, the environment, the staff (hospitality, kitchen, grounds) and the experience infrastructure — but your retreat programming, teachers, and facilitators are yours. Facilitator accommodation is included within the 26-guest capacity.</p></div>
+                        </details>
+
+                        <details class="faq-item">
+                            <summary>What's included in a full buyout versus extras?</summary>
+                            <div class="faq-answer">
+                                <p><strong>Included:</strong> full accommodation, all meals (breakfast, lunch, dinner, snacks), hospitality and kitchen staff, daily housekeeping, use of all spaces (shala, tea temple, pool, spa pavilion, beach), airport transfers for the group.</p>
+                                <p><strong>Typically extras:</strong> spa treatments, specific off-site excursions (diving, specific temple visits), alcohol, private boat charters, additional dedicated practitioners beyond your own team.</p>
+                            </div>
+                        </details>
+
+                        <details class="faq-item">
+                            <summary>How far in advance do I need to book?</summary>
+                            <div class="faq-answer"><p>Six months ahead for peak season (May–September, December–January). Two to four months for shoulder. The estate holds a small number of retreats per year by design, so dates get quieter by 9+ months out.</p></div>
+                        </details>
+
+                        <details class="faq-item">
+                            <summary>What about medical access and safety for remote Nusa Penida?</summary>
+                            <div class="faq-answer"><p>A clinic is available on Nusa Penida for routine needs. Serious emergencies require transfer to Bali — the 40-minute boat option, or helicopter medevac if critical. The estate carries comprehensive safety protocols and insurance is strongly recommended for all guests.</p></div>
+                        </details>
+
+                        <details class="faq-item">
+                            <summary>When is the best time to run a retreat here — and when should I book?</summary>
+                            <div class="faq-answer">
+                                <p><strong>Best retreat months:</strong> April through early November — Indonesia's dry season. May, June, September and October offer the most reliable weather with fewer visitors on Nusa Penida. July and August are peak — beautiful, but the island is busier with day-trippers.</p>
+                                <p><strong>A bonus window:</strong> manta ray dive season runs July–October, which can enrich retreats that include ocean excursions.</p>
+                                <p><strong>Rainy season:</strong> November–March still operates but weather becomes variable. Some facilitators specifically choose this window for its contemplative quality.</p>
+                                <p><strong>Booking lead time:</strong> <strong>6 months ahead</strong> for peak dates (May–September). <strong>3–4 months</strong> for shoulder season. The estate runs a small number of retreats per year, so dates get quiet 9+ months out.</p>
+                            </div>
+                        </details>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ====================================================================
+     MODAL — ESTATE BAREFOOT SUMBA
+     ==================================================================== -->
+<div class="modal-overlay" id="modal-barefoot-sumba" data-modal="barefoot-sumba">
+    <button class="modal-close" aria-label="Close"></button>
+    <div class="modal">
+        <div class="slider" data-slider>
+            <div class="slider-track">
+                <div class="slide active" data-caption="The Sumbanese coast — 100 hectares, 2km of private beach"><img src="https://cdn.prod.website-files.com/61a5e605e33fbc60196d8d64/663b1a9ec3ece51cdc05f052_The-Sanubari-7%20(1)%20(1).jpg" alt=""/></div>
+                    <div class="slide" data-caption="Horseback on the beach at sunrise"><img src="https://cdn.prod.website-files.com/61a5e605e33fbc60196d8d64/62e8921b8aa3c2241596a8ec_the-sanubari-riding-horse-beach-remoteness.jpg" alt=""/></div>
+                    <div class="slide" data-caption="The surf-friendly reef — waves for all levels"><img src="https://cdn.prod.website-files.com/61a5e605e33fbc60196d8d64/62f0847e1cef285df535a34b_the-sanubari-off-the-beaten-track-surfing.jpg" alt=""/></div>
+                    <div class="slide" data-caption="Beachfront villa sanctuary"><img src="https://cdn.prod.website-files.com/61a5e605e33fbc60196d8d64/663c89d5ad35be50bc143517_6G5A4943%20(1)%20(1).jpg" alt=""/></div>
+                    <div class="slide" data-caption="Studio villa — hand-crafted furniture, local weavings"><img src="https://cdn.prod.website-files.com/61a5e605e33fbc60196d8d64/62e9ead3ba10f55272f179a2_the-sanubari-studio-villa-2.jpg" alt=""/></div>
+                    <div class="slide" data-caption="One-bedroom villa — interior"><img src="https://cdn.prod.website-files.com/61a5e605e33fbc60196d8d64/62ea0e84017567054f56fe23_the-sanubari-one-bedroom-villa-1.jpg" alt=""/></div>
+                    <div class="slide" data-caption="One-bedroom villa — bathroom and garden"><img src="https://cdn.prod.website-files.com/61a5e605e33fbc60196d8d64/62ea0e849bacb85749bb7e8f_the-sanubari-one-bedroom-villa-8.jpg" alt=""/></div>
+                    <div class="slide" data-caption="Two-bedroom villa — outdoor terrace"><img src="https://cdn.prod.website-files.com/61a5e605e33fbc60196d8d64/62ea1027130ed46e3a445030_the-sanubari-two-bedroom-villa-2.jpg" alt=""/></div>
+            <div class="slide" data-caption="Studio villa — detail"><img src="https://cdn.prod.website-files.com/61a5e605e33fbc60196d8d64/62e9ead37b23f0cf7e1af198_the-sanubari-studio-villa-5.jpg" alt=""/></div>
+            </div>
+            <div class="slide-caption"></div>
+            <button class="slider-arrow prev" aria-label="Previous">‹</button>
+            <button class="slider-arrow next" aria-label="Next">›</button>
+            <div class="slider-counter"><span class="current">1</span> / <span class="total">9</span></div>
+            <div class="slider-controls"></div>
+            <div class="slider-scroll-cue"><span class="label">Scroll for details</span><span class="line"></span></div>
+        </div>
+        <div class="modal-inner">
+            <div class="modal-content">
+                <div class="eyebrow">02 · Sumba · Indonesia</div>
+                <h2>Estate Barefoot Sumba</h2>
+                <div class="location">two kilometres of private white sand, Lamboya coast</div>
+
+                <p class="lede">An island where time stands still. Eleven hand-crafted villas on 100 hectares of Sumbanese ancestral land — surf, horses, Marapu culture, and a pace that remembers itself.</p>
+
+                <div class="fact-chips">
+                    <div class="chip"><strong>11</strong>villas · 8 beachfront, 3 garden</div>
+                    <div class="chip"><strong>22</strong>guests at buyout</div>
+                    <div class="chip"><strong>2 km</strong>of private beach</div>
+                    <div class="chip"><strong>From €7,500</strong>/ night buyout · indicative</div>
+                </div>
+
+                <h3>The estate</h3>
+                <p>Set on 100 hectares within the ancestral lands of the Marapu — Sumba's indigenous culture, one of the last Neolithic megalithic peoples on earth. Eleven villas stretched along two kilometres of white sand, each hand-crafted with local artisan weavings and carvings. Solar energy, water conservation, local sourcing woven into the operation.</p>
+
+                <h3>The accommodation</h3>
+                <p>Three villa types: Studio, One-Bedroom, Two-Bedroom. Eight villas sit directly on the beachfront; three are set back in the gardens. Each with a plunge pool or direct beach access. Organic bath amenities, locally woven textiles, a sense of being held by the land.</p>
+
+                <h3>Signature spaces for retreat programming</h3>
+                <ul>
+                    <li>Beachfront yoga and meditation deck with the Indian Ocean as backdrop</li>
+                    <li>Two kilometres of private beach — for breathwork at sunrise, closing circles at sunset</li>
+                    <li>Surf-friendly reef for group sessions with the resident instructor</li>
+                    <li>Indoor salon as weather backup and for workshop-style programming</li>
+                    <li>Restaurant serving farm-to-table Indonesian menus tuned to retreat programming</li>
+                </ul>
+
+                <h3>Typical experiences</h3>
+                <ul>
+                    <li>Private surf sessions — beginner to experienced</li>
+                    <li>Horseback riding on the beach at sunrise or sunset</li>
+                    <li>Visits to traditional Marapu villages and Sumbanese weavers</li>
+                    <li>Snorkelling, paddleboarding, ocean swims</li>
+                    <li>Beach yoga, meditation, breathwork at the waterline</li>
+                </ul>
+
+                <div class="best-for">
+                    <div class="sans-small">Best suited for</div>
+                    <p>Surf + wellness retreats. Yoga teacher trainings. Women's gatherings that want cultural immersion and remoteness. Groups of 15–22 who aren't afraid of a flight + drive.</p>
+                </div>
+
+                <div class="faq-section">
+                    <h3>Retreat leader FAQs</h3>
+                    <p class="faq-section-intro">The most common questions we get from retreat leaders planning a week at Estate Barefoot Sumba — answered directly.</p>
+                    <div class="faq-accordion">
+
+                        <details class="faq-item">
+                            <summary>Can I book all 11 villas as a private retreat?</summary>
+                            <div class="faq-answer"><p><strong>Yes.</strong> The full estate for up to 22 guests at buyout. Partial buyouts (6–8 villas) are sometimes possible in shoulder season — ask for availability.</p></div>
+                        </details>
+
+                        <details class="faq-item">
+                            <summary>What are the programming spaces for yoga and group sessions?</summary>
+                            <div class="faq-answer">
+                                <p>A beachfront yoga and meditation deck that holds around 20–22 comfortably — the entire group can practice together overlooking the Indian Ocean. An indoor salon serves as weather backup and for workshop-style programming (circles, writing, breakout work).</p>
+                                <p>Two kilometres of private beach is effectively an outdoor studio — ideal for walking meditations, breathwork, sunrise/sunset ceremony.</p>
+                            </div>
+                        </details>
+
+                        <details class="faq-item">
+                            <summary>What's the minimum retreat stay?</summary>
+                            <div class="faq-answer"><p>Five to seven nights. Seven is the sweet spot given the travel involved — Sumba rewards arrival with time to slow down.</p></div>
+                        </details>
+
+                        <details class="faq-item">
+                            <summary>How do guests get to Sumba from Bali?</summary>
+                            <div class="faq-answer">
+                                <p>A 50-minute flight from Bali (Denpasar) to Tambolaka, Sumba. From Tambolaka, a two-hour drive down to Lamboya on the southwest coast. Airport transfers are arranged as part of the buyout.</p>
+                                <p>Total transit from Bali airport: about 4 hours. The remoteness is deliberate — Sumba isn't a casual-weekend destination, and that's precisely its value for retreats.</p>
+                            </div>
+                        </details>
+
+                        <details class="faq-item">
+                            <summary>Is the WiFi reliable enough for hybrid or online components?</summary>
+                            <div class="faq-answer"><p>WiFi is available across the estate and is adequate for group email, messaging, and standard video calls. For large-scale hybrid broadcasting, speak to the team in advance — they can often upgrade bandwidth for specific retreats.</p></div>
+                        </details>
+
+                        <details class="faq-item">
+                            <summary>Can you accommodate specific dietary needs?</summary>
+                            <div class="faq-answer"><p>Yes. The kitchen handles vegan, gluten-free, dairy-free, Ayurvedic, and specific allergies. Menus are built with retreat leaders in advance. Local sourcing means seasonal variation, which the team communicates upfront.</p></div>
+                        </details>
+
+                        <details class="faq-item">
+                            <summary>Can I bring my own surf coach, yoga teacher, or other facilitators?</summary>
+                            <div class="faq-answer"><p>Yes — you bring your own team. On-site staff (including the resident surf instructor) work alongside your facilitators if you wish, or step back so your team leads fully. Facilitator accommodation counts within the 22-guest capacity.</p></div>
+                        </details>
+
+                        <details class="faq-item">
+                            <summary>What cultural experiences can I integrate into a retreat?</summary>
+                            <div class="faq-answer">
+                                <p>Visits to traditional Marapu villages — one of the last Neolithic-megalithic cultures on earth — with respectful guidance from community elders. Weaving workshops with Sumbanese artisans. Traditional dance performances at sunset.</p>
+                                <p>These are offered as coordinated experiences rather than tourist stops — the estate has long-standing relationships with local communities and facilitates immersion thoughtfully.</p>
+                            </div>
+                        </details>
+
+                        <details class="faq-item">
+                            <summary>What's included in the buyout versus extras?</summary>
+                            <div class="faq-answer">
+                                <p><strong>Included:</strong> all villas, all meals, hospitality and kitchen staff, daily housekeeping, airport transfers, use of the beach deck and indoor salon, beach and pool access.</p>
+                                <p><strong>Typically extras:</strong> surf lessons, horseback riding, spa treatments, cultural excursions (village visits, weaving workshops), alcohol, specific off-site day trips.</p>
+                            </div>
+                        </details>
+
+                        <details class="faq-item">
+                            <summary>What about medical facilities in case of emergency?</summary>
+                            <div class="faq-answer"><p>Basic clinics are available in Waikabubak (about 90 minutes away). Serious emergencies require evacuation to Bali — flights run daily and medevac is available if critical. Trip insurance with medical evacuation coverage is strongly recommended for all guests.</p></div>
+                        </details>
+
+                        <details class="faq-item">
+                            <summary>When is the best time to run a retreat here — and when should I book?</summary>
+                            <div class="faq-answer">
+                                <p><strong>Best retreat months:</strong> April through October — Sumba's dry season. The shoulder months (May, June, September, October) often give the best balance: warm, stable weather, fewer visitors, and gentler pricing. July–August is peak with the strongest weather and the most consistent surf.</p>
+                                <p><strong>Surf-focused retreats:</strong> April–September for reliable swell. Some surf retreats deliberately choose November–March for bigger winter swells, accepting some rain as part of the trade.</p>
+                                <p><strong>Rainy season:</strong> Sumba is drier than Bali year-round. Even November–March sees less rain than you might expect, but expect heavier afternoon showers.</p>
+                                <p><strong>Booking lead time:</strong> <strong>3–4 months ahead</strong> for peak (June–August). <strong>2 months</strong> works for shoulder. For full buyout during high-season, 6 months is safer.</p>
+                            </div>
+                        </details>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ====================================================================
+     MODAL — ESTATE NIHI CLIFF
+     ==================================================================== -->
+<div class="modal-overlay" id="modal-nihi-cliff" data-modal="nihi-cliff">
+    <button class="modal-close" aria-label="Close"></button>
+    <div class="modal">
+        <div class="slider" data-slider>
+            <div class="slider-track">
+                <div class="slide active" data-caption="The estate on a five-acre sacred headland"><img src="https://www.haweri.com/images/Home_1_0/haweri_estate_1.jpg" alt=""/></div>
+                    <div class="slide" data-caption="Outdoor living area with 180° ocean views"><img src="https://www.haweri.com/images/Home_1_0/outdoor_living_area_with_views_4.jpg" alt=""/></div>
+                    <div class="slide" data-caption="The bamboo pavilion lounge area"><img src="https://www.haweri.com/images/Home_1_0/bamboo_pavilion_lounge_area_3.jpg" alt=""/></div>
+                    <div class="slide" data-caption="Villa overview from the headland"><img src="https://www.haweri.com/images/Home_1_0/villa_overview_5.jpg" alt=""/></div>
+                    <div class="slide" data-caption="The master suite"><img src="https://www.haweri.com/images/Home_1_0/master_suite_2.jpg" alt=""/></div>
+                    <div class="slide" data-caption="Sunset on the headland"><img src="https://www.haweri.com/images/Living_Dining_1_1/sunset_1.jpg" alt=""/></div>
+                    <div class="slide" data-caption="Living and dining room — Sumbanese Ikat detail"><img src="https://www.haweri.com/images/Living_Dining_1_1/living_and_dining_room_4.jpg" alt=""/></div>
+                    <div class="slide" data-caption="The meditation area"><img src="https://www.haweri.com/images/Living_Dining_1_1/meditation_area_9.jpg" alt=""/></div>
+                    <div class="slide" data-caption="Menara villa — master bedroom"><img src="https://www.haweri.com/images/Master_Menara_1_2/menara_villa_main_bedroom_2.jpg" alt=""/></div>
+            <div class="slide" data-caption="Menara villa — private pool"><img src="https://www.haweri.com/images/Master_Menara_1_2/menara_villa_pool_4.jpg" alt=""/></div>
+            </div>
+            <div class="slide-caption"></div>
+            <button class="slider-arrow prev" aria-label="Previous">‹</button>
+            <button class="slider-arrow next" aria-label="Next">›</button>
+            <div class="slider-counter"><span class="current">1</span> / <span class="total">10</span></div>
+            <div class="slider-controls"></div>
+            <div class="slider-scroll-cue"><span class="label">Scroll for details</span><span class="line"></span></div>
+        </div>
+        <div class="modal-inner">
+            <div class="modal-content">
+                <div class="eyebrow">03 · Sumba · Indonesia</div>
+                <h2>Estate Nihi Cliff</h2>
+                <div class="location">a sacred five-acre headland on the Sumbanese coast</div>
+
+                <p class="lede">A private oceanfront headland — nearly surrounded by the sea, backed by jungle. Five individual villas, four pools, a waterfront yoga pavilion, and arranged access to a celebrated spa and legendary surf breaks next door.</p>
+
+                <div class="fact-chips">
+                    <div class="chip"><strong>5</strong>individual villas</div>
+                    <div class="chip"><strong>10–15</strong>guests at buyout</div>
+                    <div class="chip"><strong>4</strong>pools + 10-person jacuzzi</div>
+                    <div class="chip"><strong>From €15,000</strong>/ night buyout · indicative</div>
+                </div>
+
+                <h3>The estate</h3>
+                <p>A five-acre oceanfront headland — nearly surrounded by the sea, backed by pristine tropical jungle. Five individual villas decorated with Indonesian artefacts and the finest Sumbanese Ikat weavings. A hilltop dining and living pavilion offers 180-degree views of the ocean, the sunsets, and the sweep of coastline below.</p>
+
+                <h3>The accommodation</h3>
+                <p>Five villas scattered across the estate, each with a distinct character. Menara (the tower), with its own pool and main bedroom looking out to the horizon. Four additional villas, each with en-suite bathrooms. Guests move through the estate between their private villa and shared living spaces.</p>
+
+                <h3>Signature spaces for retreat programming</h3>
+                <ul>
+                    <li>Waterfront yoga and meditation pavilion — sessions with the ocean below</li>
+                    <li>Secluded bamboo beach pavilion for smaller circles and breathwork</li>
+                    <li>Hilltop living and dining room with 180° views — for group meals and gatherings</li>
+                    <li>Four pools + a 10-person jacuzzi for integration, rest, and play</li>
+                    <li>Arranged access to a celebrated off-grid spa nearby — one of the world's most acclaimed</li>
+                </ul>
+
+                <h3>Typical experiences</h3>
+                <ul>
+                    <li>Surfing at legendary nearby breaks, coordinated through the estate team</li>
+                    <li>Horseback riding on the beach below</li>
+                    <li>Paddle boarding, snorkelling, diving, fishing</li>
+                    <li>Cultural visits to Sumbanese villages — weaving, traditional houses, Marapu sites</li>
+                    <li>Sunset rituals on the hilltop, fire pit evenings on the beach</li>
+                </ul>
+
+                <div class="best-for">
+                    <div class="sans-small">Best suited for</div>
+                    <p>Intimate premium retreats, 10–15 guests. High-net-worth clientele. Retreats where spa-and-surf privilege is the draw. Small weddings or milestone celebrations on a headland that feels mythic.</p>
+                </div>
+
+                <div class="faq-section">
+                    <h3>Retreat leader FAQs</h3>
+                    <p class="faq-section-intro">The most common questions we get from retreat leaders planning a week at Estate Nihi Cliff — answered directly.</p>
+                    <div class="faq-accordion">
+
+                        <details class="faq-item">
+                            <summary>Is full buyout the only option?</summary>
+                            <div class="faq-answer"><p><strong>Yes</strong> — Estate Nihi Cliff is buyout-only, which is part of what makes it so private. All five villas, one retreat, up to approximately 15 guests depending on sleeping configurations.</p></div>
+                        </details>
+
+                        <details class="faq-item">
+                            <summary>What's included in the privileged access to the neighbouring resort?</summary>
+                            <div class="faq-answer">
+                                <p>Pre-arranged access to the celebrated off-grid spa nearby (by appointment), legendary surf breaks along the coast (coordinated through the estate team), and additional dining options if your group wants a different evening out.</p>
+                                <p>Access is arranged in advance — it's not unlimited drop-in, but it is meaningful and, for most retreat leaders, a genuine differentiator vs. other Sumba options. Specific arrangements are confirmed during booking.</p>
+                            </div>
+                        </details>
+
+                        <details class="faq-item">
+                            <summary>What are the programming spaces for yoga and movement?</summary>
+                            <div class="faq-answer">
+                                <p>The waterfront yoga and meditation pavilion holds around 15 comfortably — the entire buyout group can practise together. The bamboo beach pavilion is smaller (6–8), ideal for breathwork, sound, or smaller circles.</p>
+                                <p>The hilltop living room doubles as a workshop space for talks, writing, and larger-format programming.</p>
+                            </div>
+                        </details>
+
+                        <details class="faq-item">
+                            <summary>What's the minimum retreat stay?</summary>
+                            <div class="faq-answer"><p>Five to seven nights is typical. Given the travel and the premium positioning, most retreats here run seven to ten.</p></div>
+                        </details>
+
+                        <details class="faq-item">
+                            <summary>How do guests arrive?</summary>
+                            <div class="faq-answer">
+                                <p>A 50-minute flight from Bali (Denpasar) to Tambolaka, Sumba, followed by approximately a one-hour drive to the estate. Airport transfers are arranged as part of the buyout.</p>
+                                <p>Total transit from Bali airport: approximately 3 hours. For groups coming from the U.S. or Europe, most guests overnight in Bali before the short flight.</p>
+                            </div>
+                        </details>
+
+                        <details class="faq-item">
+                            <summary>Is the WiFi suitable for hybrid retreats or retreat leaders running online components?</summary>
+                            <div class="faq-answer"><p>Yes. The estate has reliable WiFi across villas and common areas. For higher-bandwidth broadcast requirements, speak to the team in advance and they can optimise for your retreat.</p></div>
+                        </details>
+
+                        <details class="faq-item">
+                            <summary>Can I bring my own teachers and facilitators?</summary>
+                            <div class="faq-answer"><p>Absolutely — the estate's position is that the retreat is <em>yours</em>. On-site staff handle hospitality, kitchen, grounds, and coordinate neighbouring activities, but your programming, teachers, and facilitators are yours. Facilitator accommodation is included within the 10–15 guest capacity.</p></div>
+                        </details>
+
+                        <details class="faq-item">
+                            <summary>Can dietary preferences and allergies be accommodated?</summary>
+                            <div class="faq-answer"><p>Yes. A private chef works directly with retreat leaders before arrival to design menus — vegan, gluten-free, Ayurvedic, pescatarian, specific allergies, any dietary framework. Ingredients are sourced locally where possible, with Bali supplementation for specialist needs.</p></div>
+                        </details>
+
+                        <details class="faq-item">
+                            <summary>What's included in the buyout and what's typically extra?</summary>
+                            <div class="faq-answer">
+                                <p><strong>Included:</strong> all five villas, all meals (private chef), hospitality and kitchen staff, daily housekeeping, use of pavilions, pools and jacuzzi, airport transfers.</p>
+                                <p><strong>Typically extras:</strong> neighbouring-spa treatments, surf sessions at nearby breaks (coordination fees apply), horseback riding, cultural excursions (village visits), alcohol, specialist practitioners beyond your team.</p>
+                            </div>
+                        </details>
+
+                        <details class="faq-item">
+                            <summary>What about medical facilities and safety?</summary>
+                            <div class="faq-answer"><p>Basic on-site medical support is available and the neighbouring resort can be coordinated for more serious needs. For emergencies, evacuation to Bali is arranged (50-minute flight). Comprehensive trip insurance with medical evacuation coverage is strongly recommended for all guests.</p></div>
+                        </details>
+
+                        <details class="faq-item">
+                            <summary>When is the best time to run a retreat here — and when should I book?</summary>
+                            <div class="faq-answer">
+                                <p><strong>Best retreat months:</strong> April through October for reliable dry weather. The shoulder months (April–May, September–October) are the sweet spot — full weather, quieter neighbouring-spa access, more spontaneous surf coordination, and generally more room to negotiate dates.</p>
+                                <p><strong>Peak season:</strong> June–August. Given regional demand in peak, the estate books out 9–12 months in advance for these months.</p>
+                                <p><strong>Rainy season:</strong> November–March operates but the premium weather-dependent experiences (surf, horseback, outdoor spa) become less predictable. Not recommended for first-time retreats to Sumba.</p>
+                                <p><strong>Booking lead time:</strong> <strong>9–12 months ahead</strong> for peak. <strong>6 months</strong> for shoulder season. Early enquiry also protects coordinated access arrangements.</p>
+                            </div>
+                        </details>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+// ——— Modal open/close ———
+function openModal(id) {
+    const overlay = document.getElementById('modal-' + id);
+    if (!overlay) return;
+    overlay.classList.add('open');
+    document.body.classList.add('modal-open');
+    overlay.scrollTop = 0;
+    const slider = overlay.querySelector('.slider');
+    if (slider) initOrResetSlider(slider);
+}
+function closeModal(overlay) {
+    overlay.classList.remove('open');
+    document.body.classList.remove('modal-open');
+}
+
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.querySelector('.modal-close').addEventListener('click', () => closeModal(overlay));
+    overlay.addEventListener('click', e => {
+        if (e.target === overlay) closeModal(overlay);
+    });
+});
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay.open').forEach(closeModal);
+    }
+});
+
+// ——— Slider ———
+function initOrResetSlider(slider) {
+    if (slider.__initialized) { goToSlide(slider, 0); return; }
+    const slides = slider.querySelectorAll('.slide');
+    const prevBtn = slider.querySelector('.prev');
+    const nextBtn = slider.querySelector('.next');
+    const controls = slider.querySelector('.slider-controls');
+    const total = slider.querySelector('.slider-counter .total');
+
+    slider.__current = 0;
+    slider.__total = slides.length;
+    total.textContent = slides.length;
+
+    controls.innerHTML = '';
+    slides.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Slide ' + (i + 1));
+        dot.addEventListener('click', () => goToSlide(slider, i));
+        controls.appendChild(dot);
+    });
+
+    prevBtn.addEventListener('click', () => goToSlide(slider, slider.__current - 1));
+    nextBtn.addEventListener('click', () => goToSlide(slider, slider.__current + 1));
+
+    document.addEventListener('keydown', e => {
+        const overlay = slider.closest('.modal-overlay');
+        if (!overlay || !overlay.classList.contains('open')) return;
+        if (e.key === 'ArrowLeft') goToSlide(slider, slider.__current - 1);
+        if (e.key === 'ArrowRight') goToSlide(slider, slider.__current + 1);
+    });
+
+    let touchStartX = 0;
+    slider.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    slider.addEventListener('touchend', e => {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 50) {
+            goToSlide(slider, slider.__current + (dx < 0 ? 1 : -1));
+        }
+    });
+
+    // Show caption of current slide
+    updateCaption(slider, 0);
+
+    slider.__initialized = true;
+}
+
+function goToSlide(slider, i) {
+    const slides = slider.querySelectorAll('.slide');
+    const dots = slider.querySelectorAll('.slider-dot');
+    const counter = slider.querySelector('.slider-counter .current');
+    const n = slides.length;
+    i = (i + n) % n;
+    slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
+    dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
+    counter.textContent = i + 1;
+    slider.__current = i;
+    updateCaption(slider, i);
+}
+
+function updateCaption(slider, i) {
+    const slides = slider.querySelectorAll('.slide');
+    const caption = slider.querySelector('.slide-caption');
+    if (!caption) return;
+    const text = slides[i].dataset.caption || '';
+    caption.classList.remove('visible');
+    setTimeout(() => {
+        caption.textContent = text;
+        if (text) caption.classList.add('visible');
+    }, 200);
+}
+
+// ——— Scroll reveal ———
+const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        if (e.isIntersecting) {
+            e.target.classList.add('in-view');
+            io.unobserve(e.target);
+        }
+    });
+}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
